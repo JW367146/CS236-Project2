@@ -48,6 +48,9 @@ public:
         return os;
     }
 
+    std::vector<Token*> getTokens(){
+        return tokens;
+    }
 };
 
 #endif // LEXER_H

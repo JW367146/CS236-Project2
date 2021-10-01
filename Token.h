@@ -55,7 +55,9 @@ public:
     }
 
 
-
+    std::string getDescription(){
+        return description;
+    }
 
 
 
@@ -119,6 +121,10 @@ public:
     }
 
 
+    //Lab2 additions
+    TokenType getType(){
+        return type;
+    }
 };
 
 #endif // TOKEN_H
