@@ -1,6 +1,8 @@
 #include "Lexer.h"
 #include "iostream"
 #include "fstream"
+#include "Token.h"
+#include "Parser.h"
 
 using namespace std;
 
@@ -40,7 +42,6 @@ int main(int argc, char** argv) {
 
 
 
-   // cout << lines;
 
 
 
@@ -53,7 +54,28 @@ int main(int argc, char** argv) {
     Lexer* lexer = new Lexer();
     lexer->Run(lines);
 
-cout << lexer->toString();
+    //// I only need to out the tokens for Lab1
+    //cout << lexer->toString();
+
+
+
+    //// START OF LAB2 STUFF
+    //Let's just take out the tokens from the lexer
+    vector<Token*>  lexerTokens = lexer->getTokens();
+    vector<Token*> tokens;
+    //Let's delete the comments tokens
+    //vector<Token*> tokensCopy = tokens;
+
+    for (int i = 0; i < lexerTokens.size();i++){
+        if(lexerTokens[i]->getType() != TokenType:: COMMENT ){
+            tokens.push_back(lexerTokens[i]);
+        }
+    }
+
+    //Let's make a Parser why not?
+    Parser* parser = new Parser(tokens);
+    //now we need to parse the tokens
+     parser->parse();
 
     delete lexer;
     return 0;
