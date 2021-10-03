@@ -9,6 +9,7 @@
 
 #include "Parameter.h"
 #include <vector>
+#include <sstream>
 
 
 class Predicate {
