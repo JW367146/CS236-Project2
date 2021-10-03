@@ -66,7 +66,7 @@ int main(int argc, char** argv) {
     //Let's delete the comments tokens
     //vector<Token*> tokensCopy = tokens;
 
-    for (int i = 0; i < lexerTokens.size();i++){
+    for (unsigned int i = 0; i < lexerTokens.size();i++){
         if(lexerTokens[i]->getType() != TokenType:: COMMENT ){
             tokens.push_back(lexerTokens[i]);
         }

@@ -53,7 +53,7 @@ private:
     ////This will make a predicate from a vector of IDs
     Predicate* makePredicate(std::vector<std::string> IDs){
         Predicate* output;
-        int numIDs = IDs.size();
+        //int numIDs = IDs.size();
         std::string stringID = IDs[0];
         //The first ID will be the string id
         return output;
