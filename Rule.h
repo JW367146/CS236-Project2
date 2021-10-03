@@ -6,6 +6,8 @@
 #define CS236_PROJECT1_RULE_H
 
 #include "Predicate.h"
+#include <sstream>
+#include <string>
 
 
 class Rule {
@@ -24,7 +26,7 @@ public:
     std::string toString(){
         std::stringstream out;
         out << headPredicate->toString() <<" :- ";
-        for(int i = 0; i < bodyPredicates.size() ; i++){
+        for(unsigned int i = 0; i < bodyPredicates.size() ; i++){
             out<< bodyPredicates[i]->toString();
             if (i<bodyPredicates.size()-1){
                 out<<",";
