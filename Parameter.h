@@ -5,6 +5,7 @@
 #ifndef CS236_PROJECT1_PARAMETER_H
 #define CS236_PROJECT1_PARAMETER_H
 
+#include <string>
 
 class Parameter {
 private:
