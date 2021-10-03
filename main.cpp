@@ -74,15 +74,19 @@ int main(int argc, char** argv) {
 
     //Let's make a Parser why not?
     Parser* parser = new Parser(tokens);
+
     //now we need to parse the tokens
     bool parsed = parser->parse();
 
     if(parsed){
         cout<< "Success!\n";
+        cout<< parser->datalogProgram.toString();
     }
     if(!parsed){
         cout << "Failure!\n  " << parser->getException();
     }
+
+
 
     delete lexer;
     return 0;

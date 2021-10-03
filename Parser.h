@@ -6,6 +6,8 @@
 
 #include "Token.h"
 #include "DatalogProgram.h"
+#include "Rule.h"
+#include <set>
 
 class Parser
 {
@@ -18,10 +20,13 @@ private:
     std::vector<Predicate*> schemes;
     std::vector<Predicate*> facts;
     std::vector<Predicate*> queries;
+    std::vector<Rule*> rules;
 
     Predicate* currentPredicate;
 
+    std::vector<Predicate*> bodyPredicates;
 
+    std::set<std::string> domain;
 
 
     //This grabs all the IDs from a section of tokens.
@@ -30,6 +35,16 @@ private:
         for (int i = begin; i <end; i++){
             if(tokens[i]->getType() == TokenType::ID || tokens[i]->getType() == TokenType::STRING){
                 output.push_back(tokens[i]->getDescription());
+            }
+        }
+        return output;
+    }
+    //This grabs all Strings from a section of tokens
+    std::set<std::string> grabSTRINGs(int begin, int end){
+        std::set<std::string> output;
+        for (int i = begin; i<end; i++){
+            if(tokens[i]->getType() == TokenType::STRING){
+                output.insert(tokens[i]->getDescription());
             }
         }
         return output;
@@ -44,8 +59,12 @@ private:
         return output;
     }
 
+    void clearBodyPredicates(){
+        bodyPredicates.clear();
+    }
 
 public:
+    DatalogProgram datalogProgram;
     Parser(std::vector<Token*> tokens){
         this->tokens = tokens;
         tokenIndex = 0;
@@ -69,6 +88,8 @@ public:
         exception = error->toString();
         return false;
         }
+        //If I got here then my datalog program is done
+        datalogProgram = DatalogProgram(schemes,facts,queries,rules,domain);
         return true;
     }
 
@@ -80,9 +101,11 @@ public:
         parseCOLON();
         parseScheme();
         parseSchemelist();
+            int factsBegin = tokenIndex;
         parseFACTS();
         parseCOLON();
         parseFactlist();
+            int factsEnd = tokenIndex-1;
         parseRULES();
         parseCOLON();
         parseRulelist();
@@ -91,6 +114,9 @@ public:
         parseQuery();
         parseQuerylist();
         parseEOF();
+
+        domain = grabSTRINGs(factsBegin,factsEnd);
+
     }
     void parseSCHEMES(){
         currentToken = tokens[tokenIndex];
@@ -123,8 +149,6 @@ public:
         //We successfully made a scheme predicate. Now we push it back on our vector of those
         schemes.push_back(scheme);
     }
-
-
     void parseSchemelist(){
         //There are two productions here. Let's look at the token and send it through scheme or lambda
         currentToken = tokens[tokenIndex];
@@ -183,15 +207,18 @@ public:
             tokenIndex++;
         }else throw currentToken;
     }
-    //void parseCOLON();
     void parseQuery(){
         //There is one production for Query
-        //FIRST(QUERY) = ID
         currentToken = tokens[tokenIndex];
-        if(currentToken->getType() == TokenType::ID){
-            parsePredicate();
-            parseQ_MARK();
-        }else throw currentToken;
+        int predBegin = tokenIndex;
+        parsePredicate();
+        parseQ_MARK();
+        int predEnd = tokenIndex;
+
+        ////add to queries
+        std::vector<std::string> queryIDs = grabIDs(predBegin, predEnd);
+        Predicate* query = new Predicate(queryIDs);
+        queries.push_back(query);
     }
     void parseQuerylist(){
         //THere are two productions for querylist
@@ -263,18 +290,30 @@ public:
         parsePERIOD();
         int predEnd = tokenIndex-1;
 
-        //Now we add it to facts
+
         std::vector<std::string> factIDs = grabIDs(predBegin,predEnd);
         Predicate* fact = new Predicate(factIDs);
         facts.push_back(fact);
     }
     void parseRule(){
         currentToken = tokens[tokenIndex];
+        //I'm going to make the bodyPredicate vector here that will start filling up while making rules.
+        int predBegin = tokenIndex;
         parseHeadPredicate();
+        int predMiddle = tokenIndex;
+        //We need to make a head predicate.
+        std::vector<std::string> headPredIDs= grabIDs(predBegin,predMiddle);
+        Predicate* headPredicate = new Predicate(headPredIDs);
+
         parseCOLON_DASH();
-        parsePredicate();
+        parsePredicate(); // We are making body predicates here.
         parsePredicatelist();
         parsePERIOD();
+
+        Rule* rule = new Rule(headPredicate,bodyPredicates);
+        rules.push_back(rule);
+        clearBodyPredicates();
+
     }
     void parseQ_MARK(){
         currentToken=tokens[tokenIndex];
@@ -342,11 +381,18 @@ public:
     void parsePredicate(){
         currentToken=tokens[tokenIndex];
         //There is just one production for predicate
+        int predBegin = tokenIndex;
         parseID();
         parseLEFT_PAREN();
         parseParameter();
         parseParameterlist();
         parseRIGHT_PAREN();
+        int predEnd = tokenIndex-1;
+
+        Predicate* bodyPredicate = new Predicate(grabIDs(predBegin,predEnd));
+        bodyPredicates.push_back(bodyPredicate);
+
+
     }
     void parsePredicatelist(){
         //There are two productions for predicatelist
@@ -444,25 +490,6 @@ public:
     }
 
 
-
-
-
-
-//    //The order of calls
-//    void parseDatalogprogram();
-//    void parseSCHEMES();
-//    void parseCOLON();
-//    void parseScheme();
-//    void parseSchemelist();
-//    void parseFACTS();
-//    //void parseCOLON();
-//    void parseFACTLIST();
-//    void parseRULES();
-//    void parseRulelist();
-//    void parseQUIRIES();
-//    //void parseCOLON();
-//    void parseQuery();
-//    void parseQuerylist();
 
 
 

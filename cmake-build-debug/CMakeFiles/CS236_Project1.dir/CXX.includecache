@@ -1,0 +1,68 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Automaton.h
+Token.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Token.h
+
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/DatalogProgram.h
+Predicate.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Predicate.h
+Rule.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Rule.h
+set
+-
+
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Lexer.h
+vector
+-
+Automaton.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Automaton.h
+Token.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Token.h
+
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Parameter.h
+
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Parser.h
+Predicate.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Predicate.h
+Token.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Token.h
+DatalogProgram.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/DatalogProgram.h
+Rule.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Rule.h
+set
+-
+
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Predicate.h
+Parameter.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Parameter.h
+
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Rule.h
+Predicate.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Predicate.h
+
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Token.h
+string
+-
+sstream
+-
+
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/main.cpp
+Lexer.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Lexer.h
+iostream
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/iostream
+fstream
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/fstream
+Token.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Token.h
+Parser.h
+C:/Users/Joseph Wilson/CLionProjects/CS236 Project2 A/Parser.h
+

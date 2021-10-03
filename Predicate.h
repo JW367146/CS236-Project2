@@ -29,12 +29,35 @@ public:
         }
     }
 
+    std::string toString(){
+        std::stringstream out;
+        out <<id <<"(";
+        for (int i = 0; i<myPredicate.size();i++){
+            out<< myPredicate[i]->getParam();
+            if(i<myPredicate.size()-1){
+                out<<",";
+            }
+
+        }
+        out<<")";
+        return out.str();
+    }
 
 
     void setID(std::string idy){
         this->id = idy;
     }
 
+    std::string getID(){
+        return id;
+    }
+    int getNumParam(){
+        return myPredicate.size();
+    }
+
+    std::string getParamAtI(int index){
+        return myPredicate[index]->getParam();
+    }
 
 };
 
