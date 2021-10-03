@@ -8,6 +8,7 @@
 
 
 #include "Parameter.h"
+#include <vector>
 
 
 class Predicate {

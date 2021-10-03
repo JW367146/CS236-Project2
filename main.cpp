@@ -79,11 +79,12 @@ int main(int argc, char** argv) {
     bool parsed = parser->parse();
 
     if(parsed){
-        cout<< "Success!!!\n";
+        cout<< "Success!\n";
         cout<< parser->datalogProgram.toString();
     }
     if(!parsed){
-        cout << "Failure!\n  " << parser->getException();
+        cout << "Failure!\n  ";
+        cout<< parser->getException();
     }
 
 
