@@ -23,17 +23,16 @@ public:
     //I'm going to overload the Predicate constructor to make a predicate when parsing.
     Predicate(std::vector<std::string> IDs){
         this->id = IDs[0];
-        for(int i = 1; i < IDs.size(); i++){
+        for(unsigned int i = 1; i < IDs.size(); i++){
             Parameter* param = new Parameter(IDs[i]);
             myPredicate.push_back(param);
-
         }
     }
 
     std::string toString(){
         std::stringstream out;
         out <<id <<"(";
-        for (int i = 0; i<myPredicate.size();i++){
+        for (unsigned int i = 0; i<myPredicate.size();i++){
             out<< myPredicate[i]->getParam();
             if(i<myPredicate.size()-1){
                 out<<",";
@@ -45,9 +44,9 @@ public:
     }
 
 
-    void setID(std::string idy){
-        this->id = idy;
-    }
+//    void setID(std::string idy){
+//        this->id = idy;
+//    }
 
     std::string getID(){
         return id;
